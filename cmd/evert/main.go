@@ -1,7 +1,7 @@
 package main
 
 import (
-	"evert-core/pkg/evert"
+	"github.com/Ada-lave/evert-core/pkg/evert"
 	"os"
 )
 
