@@ -1,7 +1,6 @@
 package evert
 
 import (
-	"fmt"
 	"io"
 	"os"
 
@@ -19,8 +18,8 @@ func (ED *EvertDoc) FormatImageCaption() {
 			for _, paragraphChildren := range element.Children {
 				switch paragraphElement := paragraphChildren.(type) {
 				case *docx.Run:
-					if ED.checkHaveDrawing(paragraphElement) {
-						fmt.Printf("%#v\n", paragraphElement)
+					if ED.checkHaveDrawing(paragraphElement) && ED.IsHaveEmptySpace(idx + 1, &ED.Doc.Document.Body.Items) {
+						
 						ED.AddSpace(idx + 1, &ED.Doc.Document.Body.Items)
 					}
 				}
@@ -53,14 +52,24 @@ func(ED *EvertDoc) AddSpace(idx int, elements *[]interface{}) {
 	*elements = (*elements)[:idx+1]
 	*elements = append(*elements, ED.Doc.AddParagraph().AddText("\n"))
 	*elements = append(*elements, buff...)
+}
 
+func (ED *EvertDoc) IsHaveEmptySpace(idx int, elements *[]interface{}) bool {
+	for _, el := range (*elements)[idx].(*docx.Paragraph).Children {
+		switch run := el.(type) {
+		case *docx.Run:
+			for _, runElement := range run.Children {
+				switch text := runElement.(type) {
+				case *docx.Text:
+					if text.Text != "\n" {
+						return true
+					}
+				}
+			} 
+		}
+	}
 
-	// target := make([]int, len(elements[idx+1:]))
-	// copy(target, elements[idx+1:])
-	// elements = elements[:idx+1]
-	// elements = append(elements, 10)
-	// elements = append(elements, target...)
-
+	return false
 }
 
 func (ED *EvertDoc) checkHaveDrawing(elements *docx.Run) bool {
