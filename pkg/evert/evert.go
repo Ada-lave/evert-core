@@ -14,17 +14,14 @@ type EvertDoc struct{
 
 func (ED *EvertDoc) FormatImageCaption() {
 	for idx, el := range ED.Doc.Document.Body.Items {
-		fmt.Printf("%T\n", el)
 		switch element := el.(type) {
 		case *docx.Paragraph:
-			// fmt.Printf("%#v\n", element.Children...)
 			for _, paragraphChildren := range element.Children {
 				switch paragraphElement := paragraphChildren.(type) {
 				case *docx.Run:
 					if ED.checkHaveDrawing(paragraphElement) {
-						// fmt.Printf("%T\n", paragraphElement.Children...)
-						ED.AddSpace(idx, &ED.Doc.Document.Body.Items, el.(*docx.Paragraph))
-						// paragraphElement.Children[idx+1] = append(paragraphElement.Children, element.AddText("\n")) 
+						fmt.Printf("%#v\n", paragraphElement)
+						ED.AddSpace(idx + 1, &ED.Doc.Document.Body.Items)
 					}
 				}
 			} 
@@ -50,11 +47,19 @@ func (ED *EvertDoc) SaveFormattedDoc() {
 	}
 }
 
-func(ED *EvertDoc) AddSpace(idx int, elements *[]interface{}, parent *docx.Paragraph) {
-	buff := (*elements)[idx:]
-	*elements = (*elements)[:idx]
-	(*elements)[idx] = parent.AddText("\n")
+func(ED *EvertDoc) AddSpace(idx int, elements *[]interface{}) {
+	buff := make([]interface{}, len((*elements)[idx+1:]))
+	copy(buff, (*elements)[idx+1:])
+	*elements = (*elements)[:idx+1]
+	*elements = append(*elements, ED.Doc.AddParagraph().AddText("\n"))
 	*elements = append(*elements, buff...)
+
+
+	// target := make([]int, len(elements[idx+1:]))
+	// copy(target, elements[idx+1:])
+	// elements = elements[:idx+1]
+	// elements = append(elements, 10)
+	// elements = append(elements, target...)
 
 }
 
