@@ -20,5 +20,5 @@ func main() {
 	}
 
 	evertDoc, err := evert.New(file, fileinfo.Size())
-	evertDoc.FormatImageCaption()
+	evertDoc.FormatImageBody(false)
 }
