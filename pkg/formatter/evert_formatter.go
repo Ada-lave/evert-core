@@ -1,0 +1,69 @@
+package formatter
+
+import (
+	"github.com/Ada-lave/evert-core/pkg/evert"
+	"github.com/fumiama/go-docx"
+)
+
+type EvertFormatter struct {
+	EvertDoc *evert.EvertDoc
+}
+
+func (EF *EvertFormatter) FormatImageBody(formatImagEFescription bool) {
+	itemsLen := len(EF.EvertDoc.Doc.Document.Body.Items)
+	for idx := 0; idx < itemsLen; idx++ {
+		switch element := EF.EvertDoc.Doc.Document.Body.Items[idx].(type) {
+		case *docx.Paragraph:
+			for _, paragraphChildren := range element.Children {
+				switch paragraphElement := paragraphChildren.(type) {
+				case *docx.Run:
+					if EF.checkHavEFrawing(paragraphElement) && EF.IsHaveEmptySpace(idx + 2, &EF.EvertDoc.Doc.Document.Body.Items) {
+						EF.AddSpace(idx + 1, &EF.EvertDoc.Doc.Document.Body.Items)
+						itemsLen++
+					}
+				}
+			} 
+		}
+	}
+}
+
+func(EF *EvertFormatter) AddSpace(idx int, elements *[]interface{}) {
+	buff := make([]interface{}, len((EF.EvertDoc.Doc.Document.Body.Items)[idx+1:]))
+	copy(buff, (EF.EvertDoc.Doc.Document.Body.Items)[idx+1:])
+	EF.EvertDoc.Doc.Document.Body.Items = (EF.EvertDoc.Doc.Document.Body.Items)[:idx+1]
+	EF.EvertDoc.Doc.Document.Body.Items = append(EF.EvertDoc.Doc.Document.Body.Items, EF.EvertDoc.Doc.AddParagraph().AddText(""))
+	EF.EvertDoc.Doc.Document.Body.Items = append(EF.EvertDoc.Doc.Document.Body.Items, buff...)
+}
+
+func (EF *EvertFormatter) IsHaveEmptySpace(idx int, elements *[]interface{}) bool {
+	for _, el := range (EF.EvertDoc.Doc.Document.Body.Items)[idx].(*docx.Paragraph).Children {
+		switch run := el.(type) {
+		case *docx.Run:				
+			if run.Children == nil {
+				return false
+			}		
+		}
+	}
+	return true
+}
+
+func (EF *EvertFormatter) CapitalizeSentence(idx int) {
+
+}
+
+func (EF *EvertFormatter) checkHavEFrawing(elements *docx.Run) bool {
+	for _, runChildren := range elements.Children {
+		switch runChildren.(type) {
+		case *docx.Drawing:
+			return true
+		}
+	}
+
+	return false
+}
+
+func NewFormatter(doc *evert.EvertDoc) *EvertFormatter {
+	return &EvertFormatter{
+		EvertDoc: doc,
+	}
+}

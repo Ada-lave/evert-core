@@ -1,8 +1,10 @@
 package main
 
 import (
-	"github.com/Ada-lave/evert-core/pkg/evert"
 	"os"
+
+	"github.com/Ada-lave/evert-core/pkg/evert"
+	"github.com/Ada-lave/evert-core/pkg/formatter"
 )
 
 
@@ -20,5 +22,7 @@ func main() {
 	}
 
 	evertDoc, err := evert.New(file, fileinfo.Size())
-	evertDoc.FormatImageBody(false)
+	evertFormatter := formatter.NewFormatter(evertDoc)
+	evertFormatter.FormatImageBody(false)
+	evertDoc.SaveFormattedDoc()
 }
