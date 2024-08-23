@@ -29,7 +29,6 @@ func (ED *EvertDoc) SaveFormattedDoc() {
 
 func New(file io.ReaderAt, size int64) (*EvertDoc, error) {
 	doc, err := docx.Parse(file, size)
-
 	if err != nil {
 		return &EvertDoc{}, err
 	}

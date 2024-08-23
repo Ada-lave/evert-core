@@ -1,4 +1,10 @@
 github.com/fumiama/go-docx v0.0.0-20240428133836-8f66e2b8667f h1:DssvktYzxmaG7t2rhN/NRHnR9EeQ+XmIswOypZ+joz8=
 github.com/fumiama/go-docx v0.0.0-20240428133836-8f66e2b8667f/go.mod h1:ssRF0IaB1hCcKIObp3FkZOsjTcAHpgii70JelNb4H8M=
+github.com/fumiama/go-docx v0.0.0-20240823034352-3e5e3f4b1e6b h1:HsDFnvePeCYf8B8rK0fZ3lLAkdi/uRx8UN5mrCxjFmg=
+github.com/fumiama/go-docx v0.0.0-20240823034352-3e5e3f4b1e6b/go.mod h1:ssRF0IaB1hCcKIObp3FkZOsjTcAHpgii70JelNb4H8M=
 github.com/fumiama/imgsz v0.0.2 h1:fAkC0FnIscdKOXwAxlyw3EUba5NzxZdSxGaq3Uyfxak=
 github.com/fumiama/imgsz v0.0.2/go.mod h1:dR71mI3I2O5u6+PCpd47M9TZptzP+39tRBcbdIkoqM4=
+github.com/fumiama/imgsz v0.0.4 h1:Lsasu2hdSSFS+vnD+nvR1UkiRMK7hcpyYCC0FzgSMFI=
+github.com/fumiama/imgsz v0.0.4/go.mod h1:bISOQVTlw9sRytPwe8ir7tAaEmyz9hSNj9n8mXMBG0E=
+golang.org/x/image v0.19.0 h1:D9FX4QWkLfkeqaC62SonffIIuYdOk/UE2XKUBgRIBIQ=
+golang.org/x/image v0.19.0/go.mod h1:y0zrRqlQRWQ5PXaYCOMLTW2fpsxZ8Qh9I/ohnInJEys=
