@@ -11,8 +11,8 @@ type EvertDoc struct {
 	Doc *docx.Docx
 }
 
-func (ED *EvertDoc) SaveFormattedDoc() {
-	f, err := os.Create("generated.docx")
+func (ED *EvertDoc) SaveFormattedDoc(path string) {
+	f, err := os.Create(path)
 
 	if err != nil {
 		panic(err)

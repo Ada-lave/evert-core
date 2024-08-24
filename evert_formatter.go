@@ -1,16 +1,14 @@
-package formatter
+package evert
 
 import (
 	"fmt"
 	"unicode"
 	"unicode/utf8"
-
-	"github.com/Ada-lave/evert-core/pkg/evert"
 	"github.com/fumiama/go-docx"
 )
 
 type EvertFormatter struct {
-	EvertDoc *evert.EvertDoc
+	EvertDoc *EvertDoc
 }
 
 func (EF *EvertFormatter) Format(addSpacesBeetweenImageText bool, formatImagDescription bool) {
@@ -39,8 +37,7 @@ func (EF *EvertFormatter) AddSpace(idx int, elements *[]interface{}) {
 	buff := make([]interface{}, len((EF.EvertDoc.Doc.Document.Body.Items)[idx+1:]))
 	copy(buff, (EF.EvertDoc.Doc.Document.Body.Items)[idx+1:])
 	EF.EvertDoc.Doc.Document.Body.Items = (EF.EvertDoc.Doc.Document.Body.Items)[:idx+1]
-	emptyParagraph := &docx.Paragraph{}
-	EF.EvertDoc.Doc.Document.Body.Items = append(EF.EvertDoc.Doc.Document.Body.Items, emptyParagraph)
+	EF.EvertDoc.Doc.Document.Body.Items = append(EF.EvertDoc.Doc.Document.Body.Items, &docx.Paragraph{})
 	EF.EvertDoc.Doc.Document.Body.Items = append(EF.EvertDoc.Doc.Document.Body.Items, buff...)
 }
 
@@ -86,7 +83,7 @@ func (EF *EvertFormatter) checkHaveDrawing(elements *docx.Run) bool {
 	return false
 }
 
-func NewFormatter(doc *evert.EvertDoc) *EvertFormatter {
+func NewFormatter(doc *EvertDoc) *EvertFormatter {
 	return &EvertFormatter{
 		EvertDoc: doc,
 	}

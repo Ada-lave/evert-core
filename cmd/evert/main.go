@@ -3,8 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/Ada-lave/evert-core/pkg/evert"
-	"github.com/Ada-lave/evert-core/pkg/formatter"
+	"github.com/Ada-lave/evert-core"
 )
 
 func main() {
@@ -12,7 +11,7 @@ func main() {
 }
 
 func formatDoc() {
-	file, err := os.Open("origin.docx")
+	file, err := os.Open("test_docs/origin.docx")
 
 	if err != nil {
 		panic(err)
@@ -29,7 +28,7 @@ func formatDoc() {
 		panic(err)
 	}
 
-	evertFormatter := formatter.NewFormatter(evertDoc)
+	evertFormatter := evert.NewFormatter(evertDoc)
 	evertFormatter.Format(true, true)
-	evertDoc.SaveFormattedDoc()
+	evertDoc.SaveFormattedDoc("test_docs/generated.docx")
 }

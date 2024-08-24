@@ -1,5 +1,0 @@
-package evert
-
-func Run() {
-
-}
