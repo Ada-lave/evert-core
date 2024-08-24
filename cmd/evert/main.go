@@ -29,6 +29,10 @@ func formatDoc() {
 	}
 
 	evertFormatter := evert.NewFormatter(evertDoc)
-	evertFormatter.Format(true, true)
+	evertFormatter.Format(evert.FormatterParams{
+		AddSpacesBeetweenImageText: true,
+		FormatImagDescription: false,
+	})
+	
 	evertDoc.SaveFormattedDoc("test_docs/generated.docx")
 }

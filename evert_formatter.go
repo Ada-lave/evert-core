@@ -11,7 +11,7 @@ type EvertFormatter struct {
 	EvertDoc *EvertDoc
 }
 
-func (EF *EvertFormatter) Format(addSpacesBeetweenImageText bool, formatImagDescription bool) {
+func (EF *EvertFormatter) Format(params FormatterParams) {
 	itemsLen := len(EF.EvertDoc.Doc.Document.Body.Items)
 	for idx := 0; idx < itemsLen; idx++ {
 		switch element := EF.EvertDoc.Doc.Document.Body.Items[idx].(type) {
@@ -19,12 +19,12 @@ func (EF *EvertFormatter) Format(addSpacesBeetweenImageText bool, formatImagDesc
 			for _, paragraphChildren := range element.Children {
 				switch paragraphElement := paragraphChildren.(type) {
 				case *docx.Run:
-					if addSpacesBeetweenImageText && EF.checkHaveDrawing(paragraphElement) && EF.IsHaveEmptySpace(idx+2, &EF.EvertDoc.Doc.Document.Body.Items) {
+					if params.AddSpacesBeetweenImageText && EF.checkHaveDrawing(paragraphElement) && EF.IsHaveEmptySpace(idx+2, &EF.EvertDoc.Doc.Document.Body.Items) {
 						EF.AddSpace(idx+1, &EF.EvertDoc.Doc.Document.Body.Items)
 						itemsLen++
 					}
 
-					if formatImagDescription && EF.checkHaveDrawing(paragraphElement) {
+					if params.FormatImagDescription && EF.checkHaveDrawing(paragraphElement) {
 						EF.CapitalizePictureSentence(&EF.EvertDoc.Doc.Document.Body.Items[idx+1])
 					}
 				}
