@@ -7,7 +7,7 @@ import (
 	"github.com/fumiama/go-docx"
 )
 
-type EvertDoc struct{
+type EvertDoc struct {
 	Doc *docx.Docx
 }
 
@@ -34,4 +34,4 @@ func New(file io.ReaderAt, size int64) (*EvertDoc, error) {
 	}
 
 	return &EvertDoc{Doc: doc}, nil
-} 
+}

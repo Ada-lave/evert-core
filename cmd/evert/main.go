@@ -7,7 +7,6 @@ import (
 	"github.com/Ada-lave/evert-core/pkg/formatter"
 )
 
-
 func main() {
 	formatDoc()
 }
