@@ -8,7 +8,7 @@ import (
 )
 
 type EvertFormatter struct {
-	EvertDoc *EvertDoc
+	EvertDoc *Evert
 }
 
 func (EF *EvertFormatter) Format(params FormatterParams) {
@@ -83,7 +83,7 @@ func (EF *EvertFormatter) checkHaveDrawing(elements *docx.Run) bool {
 	return false
 }
 
-func NewFormatter(doc *EvertDoc) *EvertFormatter {
+func NewFormatter(doc *Evert) *EvertFormatter {
 	return &EvertFormatter{
 		EvertDoc: doc,
 	}
