@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/Ada-lave/evert-core"
@@ -34,5 +35,11 @@ func formatDoc() {
 		FormatImagDescription: false,
 	})
 	
-	evertDoc.SaveFormattedDoc("test_docs/generated.docx")
+	res, err := evertDoc.GetBytes()
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(res)
 }
